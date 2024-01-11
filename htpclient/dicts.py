@@ -133,3 +133,7 @@ dict_getFileStatus = MappingProxyType(
 dict_deregister = MappingProxyType(
     {'action': 'deregister',
      'token': ''})
+
+dict_shutdown = MappingProxyType({
+    'action': 'shutdown',
+    'token': ''})

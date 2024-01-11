@@ -22,6 +22,7 @@ from htpclient.dicts import *
 import logging
 
 from htpclient.task import Task
+from htpclient.shutdown import Shutdown
 
 CONFIG = None
 binaryDownload = None
@@ -179,12 +180,14 @@ def loop():
     chunk = Chunk()
     files = Files()
     hashlist = Hashlist()
+    shutdown = Shutdown()
     task_change = True
     last_task_id = 0
     cracker = None
     while True:
         CONFIG.update()
         files.deletion_check()  # check if there are deletion orders from the server
+        shutdown.get_shutdown() # check if there is a shutdown request from server
         if task.get_task() is not None:
             last_task_id = task.get_task()['taskId']
         task.load_task()
