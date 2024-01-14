@@ -26,11 +26,9 @@ class Shutdown:
         logging.info("starting studown process")
         # Execute a shutdown command on Windows
         if os_type == 1:
-            logging.info("Detected Windows OS")
-            #subprocess.call(["shutdown", "/f", "/s", "/t", "0"])
+            subprocess.call(["shutdown", "/f", "/s", "/t", "0"])
         elif os_type == 0 or os_type == 2:
             # Execute a shutdown command on Linux or macOS
-            logging.info("Detected Linux or MacOS")
-            #subprocess.run(["shutdown", "-h", "now"])
+            subprocess.call(["shutdown", "-h", "now"])
         else:
             logging.error("Operating System is not supported") 
