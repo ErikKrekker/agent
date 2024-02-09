@@ -15,6 +15,7 @@ from htpclient.initialize import Initialize
 from htpclient.jsonRequest import JsonRequest, os
 from htpclient.helpers import send_error, update_files, kill_hashcat, get_bit, print_speed, get_rules_and_hl, get_wordlist, escape_ansi
 from htpclient.dicts import *
+from htpclient.shutdown import Shutdown
 
 
 class HashcatCracker:
@@ -282,6 +283,7 @@ class HashcatCracker:
         logging.info("finished chunk")
 
     def run_loop(self, proc, chunk, task):
+        shutdown = Shutdown()
         zap_path = Path(self.config.get_value('zaps-path'), f"hashlist_{task['hashlistId']}")
 
         self.cracks = []
@@ -414,6 +416,7 @@ class HashcatCracker:
                                 sleep(5)
                                 return
                             else:
+                                shutdown.get_shutdown() # check if there is a shutdown request from server
                                 cracks_count = len(self.cracks)
                                 self.cracks = cracks_backup
                                 zaps = ans['zaps']
